@@ -20,3 +20,23 @@ CREATE TABLE user_roles (
   user_id INT NOT NULL,
   role_id INT NOT NULL
 );
+
+DROP TABLE IF EXISTS operations;
+
+CREATE TABLE operations (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  type VARCHAR(50) NOT NULL,
+  cost NUMERIC NOT NULL
+);
+
+DROP TABLE IF EXISTS records;
+
+CREATE TABLE records (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  operation_id NUMERIC NOT NULL,
+  user_id NUMERIC NOT NULL,
+  amount NUMERIC,
+  user_balance NUMERIC,
+  operation_response VARCHAR(50),
+  date DATE NOT NULL
+);
