@@ -1,5 +1,6 @@
 package com.truenorth.arithmetic.controllers;
 
+import com.truenorth.arithmetic.models.request.RecordRequest;
 import com.truenorth.arithmetic.services.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,15 +33,10 @@ public class RecordController {
 
     @GetMapping("/getRecordsByUser")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Object>> getAllTutorials(
-            @RequestParam(name = "userId") Long userId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
-    ) {
-
+    public ResponseEntity<Map<String, Object>> getAllTutorials(@RequestBody RecordRequest recordRequest) {
         try {
-            Pageable paging = PageRequest.of(page, size);
-            Page<Record> pages = recordService.getRecordsByUser(userId, paging);
+            Pageable paging = PageRequest.of(recordRequest.getPage(), recordRequest.getSize());
+            Page<Record> pages = recordService.getRecordsByUser(recordRequest.getUserId(), recordRequest.getFilters(), paging);
             List<Record> records = pages.getContent();
             Map<String, Object> response = new HashMap<>();
             response.put("records", records);
