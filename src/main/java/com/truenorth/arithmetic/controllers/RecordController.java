@@ -39,19 +39,14 @@ public class RecordController {
     ) {
 
         try {
-            List<Record> records = new ArrayList<Record>();
             Pageable paging = PageRequest.of(page, size);
-
             Page<Record> pages = recordService.getRecordsByUser(userId, paging);
-
-            records = pages.getContent();
-
+            List<Record> records = pages.getContent();
             Map<String, Object> response = new HashMap<>();
             response.put("records", records);
             response.put("currentPage", pages.getNumber());
             response.put("totalItems", pages.getTotalElements());
             response.put("totalPages", pages.getTotalPages());
-
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

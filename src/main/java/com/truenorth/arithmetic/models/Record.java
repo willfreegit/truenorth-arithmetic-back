@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -26,10 +27,10 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotNull
     @Column(name = "operation_id")
     private Long operationId;
-    @NotBlank
+    @NotNull
     @Column(name = "user_id")
     private Long userId;
     private BigDecimal amount;

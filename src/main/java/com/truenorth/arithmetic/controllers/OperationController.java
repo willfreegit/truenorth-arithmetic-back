@@ -49,7 +49,7 @@ public class OperationController {
                  * If the whole operation was ok, register into record table
                  */
                 response.setBalance(balance.subtract(response.getCost()));
-                recordService.saveRecord(Record
+                if(!recordService.saveRecord(Record
                         .builder()
                         .operationId(operationRequest.getOperationId())
                         .userId(operationRequest.getUserId())
@@ -57,7 +57,11 @@ public class OperationController {
                         .userBalance(response.getBalance())
                         .operationResponse(String.valueOf(response.getCode()))
                         .dateOperation(Date.valueOf(LocalDate.now()))
-                        .build());
+                        .build())){
+                    /**
+                     * Pending implement notification by email to the admin...
+                     */
+                }
             } else{
                 /**
                  * Pending implement notification by email to the admin...

@@ -3,6 +3,7 @@ package com.truenorth.arithmetic.services.imp;
 import com.truenorth.arithmetic.models.Balance;
 import com.truenorth.arithmetic.repository.BalanceRepository;
 import com.truenorth.arithmetic.services.BalanceService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
  * @version 1.0
  */
 @Service
+@Log4j2
 public class BalanceServiceImp implements BalanceService {
 
     @Autowired
@@ -41,6 +43,7 @@ public class BalanceServiceImp implements BalanceService {
                 balanceRepository.save(balance);
                 return true;
             } catch (Exception ex){
+                log.error("Error updateBalanceByUser: " + ex.getMessage());
                 return false;
             }
         }
