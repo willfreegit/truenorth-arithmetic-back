@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
- * Class operation service, business main
+ * Implement operation service, business main
  *
  * @author wmonge on 03/2023.
  * @version 1.0
@@ -30,10 +30,10 @@ public class OperationServiceImp implements OperationService {
 
     @Override
     public OperationResponse mathOperations(OperationRequest operationRequest, BigDecimal balance) {
-        Optional<Operation> operationOptional = operationRepository.findById(operationRequest.getId_operation());
+        Optional<Operation> operationOptional = operationRepository.findById(operationRequest.getOperationId());
         if (operationOptional.isPresent()) {
             Operation operation = operationOptional.get();
-            if(operation.getCost().compareTo(balance) < 0){
+            if(balance.compareTo(operation.getCost()) < 0){
                 return OperationResponse
                         .builder()
                         .code(403)

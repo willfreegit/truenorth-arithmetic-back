@@ -6,6 +6,12 @@ import java.util.Set;
 
 import javax.validation.constraints.*;
 
+/**
+ * Singup request pojo
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Data
 public class SignupRequest {
   @NotBlank

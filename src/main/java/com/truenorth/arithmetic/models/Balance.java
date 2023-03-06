@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @Table(name = "user_balance")
 public class Balance {
     @Id
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
     private BigDecimal balance;
 }

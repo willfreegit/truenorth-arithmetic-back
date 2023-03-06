@@ -1,6 +1,9 @@
 package com.truenorth.arithmetic.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,17 +18,25 @@ import java.sql.Date;
  */
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "records")
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
-    private Long operation_id;
+    @Column(name = "operation_id")
+    private Long operationId;
     @NotBlank
-    private Long user_id;
-    private double amount;
-    private BigDecimal user_balance;
-    private String operation_response;
-    private Date date;
+    @Column(name = "user_id")
+    private Long userId;
+    private BigDecimal amount;
+    @Column(name = "user_balance")
+    private BigDecimal userBalance;
+    @Column(name = "operation_response")
+    private String operationResponse;
+    @Column(name = "date_operation")
+    private Date dateOperation;
 }

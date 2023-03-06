@@ -22,20 +22,20 @@ DROP TABLE IF EXISTS records;
 CREATE TABLE operations (
   id INT AUTO_INCREMENT PRIMARY KEY,
   type VARCHAR(50) NOT NULL,
-  cost NUMERIC NOT NULL
+  cost NUMERIC(20, 2) NOT NULL
 );
 CREATE TABLE records (
   id INT AUTO_INCREMENT  PRIMARY KEY,
-  operation_id NUMERIC NOT NULL,
-  user_id NUMERIC NOT NULL,
-  amount NUMERIC,
-  user_balance NUMERIC,
+  operation_id INT NOT NULL,
+  user_id INT NOT NULL,
+  amount NUMERIC(20, 2),
+  user_balance NUMERIC(20, 2),
   operation_response VARCHAR(50),
-  date DATE NOT NULL
+  date_operation DATE NOT NULL
 );
 --CREATE TABLE USER BALANCE
 DROP TABLE IF EXISTS user_balance;
 CREATE TABLE user_balance (
-  user_id NUMERIC PRIMARY KEY,
-  balance NUMERIC
+  user_id INT PRIMARY KEY,
+  balance NUMERIC(20, 2)
 );

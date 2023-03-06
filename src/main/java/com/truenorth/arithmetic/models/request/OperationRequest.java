@@ -7,6 +7,12 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Input pojo operations
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +24,7 @@ public class OperationRequest {
     @NotNull
     private Integer stringSize;
     @NotNull
-    private Long id_operation;
+    private Long operationId;
     @NotNull
     @NotBlank
     private String type;

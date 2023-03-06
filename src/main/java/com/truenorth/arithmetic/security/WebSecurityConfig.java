@@ -21,12 +21,16 @@ import com.truenorth.arithmetic.security.jwt.AuthEntryPointJwt;
 import com.truenorth.arithmetic.security.jwt.AuthTokenFilter;
 import com.truenorth.arithmetic.security.services.UserDetailsServiceImpl;
 
+/**
+ * Configuration jwt security app arithmetic true north
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Configuration
 @EnableGlobalMethodSecurity(
-    // securedEnabled = true,
-    // jsr250Enabled = true,
     prePostEnabled = true)
-public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
 
@@ -37,11 +41,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   public AuthTokenFilter authenticationJwtTokenFilter() {
     return new AuthTokenFilter();
   }
-
-//  @Override
-//  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-//    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//  }
   
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
@@ -52,12 +51,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
    
       return authProvider;
   }
-
-//  @Bean
-//  @Override
-//  public AuthenticationManager authenticationManagerBean() throws Exception {
-//    return super.authenticationManagerBean();
-//  }
   
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -68,18 +61,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-//  @Override
-//  protected void configure(HttpSecurity http) throws Exception {
-//    http.cors().and().csrf().disable()
-//      .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//      .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-//      .antMatchers("/api/test/**").permitAll()
-//      .anyRequest().authenticated();
-//
-//    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//  }
   
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -89,6 +70,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
             .antMatchers("/api/v1/operations/**").permitAll()
+            .antMatchers("/api/v1/records/**").permitAll()
             .antMatchers("/h2/**").permitAll()
         .anyRequest().authenticated();
     

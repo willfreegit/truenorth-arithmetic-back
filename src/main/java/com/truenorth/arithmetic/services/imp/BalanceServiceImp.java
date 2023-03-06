@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+/**
+ * Implement balance service
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Service
 public class BalanceServiceImp implements BalanceService {
 
