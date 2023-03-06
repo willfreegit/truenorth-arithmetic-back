@@ -3,12 +3,16 @@ package com.truenorth.arithmetic.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * Entity Record
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Data
 @Entity
 @Table(name = "records")

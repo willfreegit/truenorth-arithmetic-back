@@ -10,6 +10,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * Entity User
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Data
 @Entity
 @Table(name = "users", 

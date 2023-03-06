@@ -10,8 +10,15 @@ import com.truenorth.arithmetic.services.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
+/**
+ * Class operation service, business main
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Service
 public class OperationServiceImp implements OperationService {
 
@@ -22,31 +29,59 @@ public class OperationServiceImp implements OperationService {
     private OperationRepository operationRepository;
 
     @Override
-    public OperationResponse mathOperations(OperationRequest operationRequest) {
-        Optional<Operation> operation = operationRepository.findById(operationRequest.getId_operation());
-        if (operation.isPresent()) {
-            if ("STRING" .equalsIgnoreCase(operationRequest.getType())) {
-                String result = "";
+    public OperationResponse mathOperations(OperationRequest operationRequest, BigDecimal balance) {
+        Optional<Operation> operationOptional = operationRepository.findById(operationRequest.getId_operation());
+        if (operationOptional.isPresent()) {
+            Operation operation = operationOptional.get();
+            if(operation.getCost().compareTo(balance) < 0){
+                return OperationResponse
+                        .builder()
+                        .code(403)
+                        .message("BALANCE NOT ENOUGH")
+                        .build();
+            }
+            if ("STRING".equalsIgnoreCase(operationRequest.getType())) {
                 try {
-                    result = arithmeticRepository.random_string(operationRequest.getStringSize());
-                    return new OperationResponse<>(200, "OK", result);
+                    String result = arithmeticRepository.random_string(operationRequest.getStringSize());
+                    return OperationResponse
+                            .builder()
+                            .code(200)
+                            .data(result)
+                            .cost(operation.getCost())
+                            .build();
                 } catch (Exception ex) {
-                    return new OperationResponse<>(500, ex.getMessage(), result);
+                    return OperationResponse
+                            .builder()
+                            .code(500)
+                            .message(ex.getMessage())
+                            .build();
                 }
             } else {
-                String arithmeticExpresion = operation.get().getType();
+                String arithmeticExpresion = operation.getType();
                 if (arithmeticExpresion != null) {
-                    double result = 0;
                     try {
-                        result = arithmeticRepository.mathOperations(ArithmeticOperator.valueOf(arithmeticExpresion), operationRequest.getNumber1(), operationRequest.getNumber2());
-                        return new OperationResponse<>(200, "OK", result);
+                        double result = arithmeticRepository.mathOperations(ArithmeticOperator.valueOf(arithmeticExpresion), operationRequest.getNumber1(), operationRequest.getNumber2());
+                        return OperationResponse
+                                .builder()
+                                .code(200)
+                                .data(result)
+                                .cost(operation.getCost())
+                                .build();
                     } catch (Exception ex) {
-                        return new OperationResponse<>(500, ex.getMessage(), result);
+                        return OperationResponse
+                                .builder()
+                                .code(500)
+                                .message(ex.getMessage())
+                                .build();
                     }
                 }
             }
         }
-        return new OperationResponse<>(200, "OPERATION NOT FOUND", null);
+        return OperationResponse
+                .builder()
+                .code(400)
+                .message("OPERATION NOT FOUND")
+                .build();
     }
 
 }

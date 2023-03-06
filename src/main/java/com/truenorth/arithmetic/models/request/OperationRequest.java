@@ -12,18 +12,16 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class OperationRequest {
     @NotNull
-    @NotBlank
     private Double number1;
     @NotNull
-    @NotBlank
     private Double number2;
     @NotNull
-    @NotBlank
     private Integer stringSize;
     @NotNull
-    @NotBlank
     private Long id_operation;
     @NotNull
     @NotBlank
     private String type;
+    @NotNull
+    private Long userId;
 }

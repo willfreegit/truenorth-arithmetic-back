@@ -1,8 +1,7 @@
 package com.truenorth.arithmetic.repository;
 
-import java.math.BigDecimal;
+import com.truenorth.arithmetic.models.Balance;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BalanceRepository {
-    public BigDecimal getCurrentBalance();
-    public boolean updateBalance();
+public interface BalanceRepository extends JpaRepository<Balance, Long> {
 }
