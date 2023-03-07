@@ -31,6 +31,11 @@ public class RecordServiceImp implements RecordService {
     }
 
     @Override
+    public void remove(Long id) {
+        recordRepository.deleteById(id);
+    }
+
+    @Override
     public boolean saveRecord(Record record) {
         try{
             recordRepository.save(record);

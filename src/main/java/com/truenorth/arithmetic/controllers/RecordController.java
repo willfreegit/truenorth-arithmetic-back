@@ -51,6 +51,12 @@ public class RecordController {
             response.put("totalPages", pages.getTotalPages());
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/deleteRecordById")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity deleteRecordById(@RequestBody Long id) {
+        recordService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

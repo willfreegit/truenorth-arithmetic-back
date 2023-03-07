@@ -31,7 +31,8 @@ CREATE TABLE records (
   amount NUMERIC(20, 2),
   user_balance NUMERIC(20, 2),
   operation_response VARCHAR(50),
-  date_operation DATE NOT NULL
+  date_operation DATE NOT NULL,
+  deleted BOOLEAN DEFAULT FALSE
 );
 --CREATE TABLE USER BALANCE
 DROP TABLE IF EXISTS user_balance;

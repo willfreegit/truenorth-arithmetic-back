@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +25,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "records")
+@SQLDelete(sql="UPDATE records SET deleted = true WHERE id=?")
+@Where(clause = "deleted = false")
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +44,5 @@ public class Record {
     private String operationResponse;
     @Column(name = "date_operation")
     private Date dateOperation;
+    private Boolean deleted = Boolean.FALSE;
 }

@@ -14,7 +14,8 @@ import java.util.List;
  * @version 1.0
  */
 public interface RecordService {
-    public List<Record> getAll();
-    public boolean saveRecord(Record record);
-    public Page<Record> getRecordsByUser(Long userId, RecordRequest.Filters filters, Pageable pageable);
+    List<Record> getAll();
+    void remove(Long id);
+    boolean saveRecord(Record record);
+    Page<Record> getRecordsByUser(Long userId, RecordRequest.Filters filters, Pageable pageable);
 }
