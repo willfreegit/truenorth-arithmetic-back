@@ -35,7 +35,7 @@ public class OperationController {
     @Autowired
     private RecordService recordService;
 
-    @GetMapping("/mathOperations")
+    @PostMapping("/mathOperations")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<OperationResponse> mathOperations(@RequestBody OperationRequest operationRequest){
         BigDecimal balance = balanceService.getBalanceByUser(operationRequest.getUserId());

@@ -1,5 +1,6 @@
 package com.truenorth.arithmetic.models.request;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Data
+@Builder
 public class RecordRequest {
     @NotNull
     private Long userId;

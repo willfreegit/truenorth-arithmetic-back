@@ -32,9 +32,15 @@ import com.truenorth.arithmetic.models.request.SignupRequest;
 import com.truenorth.arithmetic.security.jwt.JwtUtils;
 import com.truenorth.arithmetic.security.services.UserDetailsImpl;
 
+/**
+ * Class control users
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class UserController {
   @Autowired
   AuthenticationManager authenticationManager;
@@ -53,18 +59,14 @@ public class UserController {
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
-    
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
+    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
     List<String> roles = userDetails.getAuthorities().stream()
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
-
     return ResponseEntity.ok(new JwtResponse(jwt,
                          userDetails.getId(), 
                          userDetails.getUsername(),
@@ -78,14 +80,10 @@ public class UserController {
           .badRequest()
           .body(new MessageResponse("Error: Username is already taken!"));
     }
-
-    // Create new user's account
     User user = new User(signUpRequest.getUsername(),
                encoder.encode(signUpRequest.getPassword()));
-
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
-
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER)
           .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -105,10 +103,8 @@ public class UserController {
         }
       });
     }
-
     user.setRoles(roles);
     userRepository.save(user);
-
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 }

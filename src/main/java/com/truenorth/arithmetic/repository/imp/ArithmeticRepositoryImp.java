@@ -9,6 +9,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class consume external resource
+ *
+ * @author wmonge on 03/2023.
+ * @version 1.0
+ */
 @Repository
 public class ArithmeticRepositoryImp implements ArithmeticRepository {
     @Override

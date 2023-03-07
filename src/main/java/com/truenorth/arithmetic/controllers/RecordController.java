@@ -1,5 +1,6 @@
 package com.truenorth.arithmetic.controllers;
 
+import com.truenorth.arithmetic.models.Record;
 import com.truenorth.arithmetic.models.request.RecordRequest;
 import com.truenorth.arithmetic.services.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import com.truenorth.arithmetic.models.Record;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,19 +32,25 @@ public class RecordController {
 
     @GetMapping("/getRecordsByUser")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Object>> getAllTutorials(@RequestBody RecordRequest recordRequest) {
-        try {
-            Pageable paging = PageRequest.of(recordRequest.getPage(), recordRequest.getSize());
-            Page<Record> pages = recordService.getRecordsByUser(recordRequest.getUserId(), recordRequest.getFilters(), paging);
+    public ResponseEntity<Map<String, Object>> getRecordsByUser(@RequestBody RecordRequest recordRequest) {
+        if(recordRequest.getPage() == null || recordRequest.getSize() == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } else {
+            if(recordRequest.getPage() < 0 || recordRequest.getSize() < 0){
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+        }
+        Pageable paging = PageRequest.of(recordRequest.getPage(), recordRequest.getSize());
+        Page<Record> pages = recordService.getRecordsByUser(recordRequest.getUserId(), recordRequest.getFilters(), paging);
+        Map<String, Object> response = new HashMap<>();
+        if(pages != null){
             List<Record> records = pages.getContent();
-            Map<String, Object> response = new HashMap<>();
             response.put("records", records);
             response.put("currentPage", pages.getNumber());
             response.put("totalItems", pages.getTotalElements());
             response.put("totalPages", pages.getTotalPages());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 }
