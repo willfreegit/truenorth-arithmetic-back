@@ -44,5 +44,5 @@ public class Record {
     private String operationResponse;
     @Column(name = "date_operation")
     private Date dateOperation;
-    private Boolean deleted = Boolean.FALSE;
+    private boolean deleted = false;
 }

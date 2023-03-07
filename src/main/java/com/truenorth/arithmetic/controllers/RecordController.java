@@ -55,7 +55,7 @@ public class RecordController {
 
     @DeleteMapping("/deleteRecordById")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity deleteRecordById(@RequestBody Long id) {
+    public ResponseEntity deleteRecordById(@RequestParam(name = "id") Long id) {
         recordService.remove(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
