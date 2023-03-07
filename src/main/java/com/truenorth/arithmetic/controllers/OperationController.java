@@ -71,4 +71,10 @@ public class OperationController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/getBalanceByUser")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<BigDecimal> getBalanceByUser(@RequestParam Long userId){
+        return ResponseEntity.ok(balanceService.getBalanceByUser(userId));
+    }
+
 }
