@@ -13,6 +13,8 @@ This application is a maven project, so, to buld the project run mvn clean insta
 Make sure you are using JDK 1.8 and Maven 3.x
 You can build the project and run the tests by running mvn clean package
 
+## App features
+
 Inside the application.properties you can find the configuration for a MySQL database or H2 database (if you want to use the embended Spring Database)
 To deploy the project in my cloud server I changed the credential with my AWS RDS values.
 
