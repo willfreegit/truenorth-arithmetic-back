@@ -1,15 +1,15 @@
-Spring Boot TrueNorth Arithmetic Back End.
+# Spring Boot TrueNorth Arithmetic Back End.
 Web platform to provide a simple calculator functionality (addition, subtraction, multiplication, division, square root, and a random string generation) 
 where each functionality will have a separate cost per request.
 
-How to Run:
+## How to Run:
 This application is packaged as a jar which has Tomcat 8 embedded. 
 No Tomcat or JBoss installation is necessary. You run it using the java -jar command.
 
-How to Compile:
+## How to Compile:
 This application is a maven project, so, to buld the project run mvn clean install in your local path.
 
-Clone this repository:
+## Clone this repository:
 Make sure you are using JDK 1.8 and Maven 3.x
 You can build the project and run the tests by running mvn clean package
 
