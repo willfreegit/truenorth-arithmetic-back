@@ -23,7 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -54,7 +55,9 @@ public class RecordControllerTest {
         List<Record> list = Arrays.asList(Record.builder().userId(userId).build());
         Page<Record> pages = new PageImpl<>(list);
         when(this.recordService.getRecordsByUser(userId, null, paging)).thenReturn(pages);
-        mockMvc.perform(get("/truenorth/api/v1/records/getRecordsByUser").contextPath("/truenorth")
+        mockMvc.perform(post("/truenorth/api/v1/records/getRecordsByUser")
+                        .with(csrf())
+                        .contextPath("/truenorth")
                         .content(Util.objectToJSONString(recordRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -71,7 +74,9 @@ public class RecordControllerTest {
         List<Record> list = Arrays.asList(Record.builder().userId(userId).build());
         Page<Record> pages = new PageImpl<>(list);
         when(this.recordService.getRecordsByUser(userId, null, paging)).thenReturn(pages);
-        mockMvc.perform(get("/truenorth/api/v1/records/getRecordsByUser").contextPath("/truenorth")
+        mockMvc.perform(post("/truenorth/api/v1/records/getRecordsByUser")
+                        .with(csrf())
+                        .contextPath("/truenorth")
                         .content(Util.objectToJSONString(recordRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
@@ -90,7 +95,9 @@ public class RecordControllerTest {
         List<Record> list = Arrays.asList(Record.builder().userId(userId).build());
         Page<Record> pages = new PageImpl<>(list);
         when(this.recordService.getRecordsByUser(userId, null, paging)).thenReturn(pages);
-        mockMvc.perform(get("/truenorth/api/v1/records/getRecordsByUser").contextPath("/truenorth")
+        mockMvc.perform(post("/truenorth/api/v1/records/getRecordsByUser")
+                        .with(csrf())
+                        .contextPath("/truenorth")
                         .content(Util.objectToJSONString(recordRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
@@ -108,7 +115,9 @@ public class RecordControllerTest {
         List<Record> list = Arrays.asList(Record.builder().userId(userId).build());
         Page<Record> pages = new PageImpl<>(list);
         when(this.recordService.getRecordsByUser(userId, null, paging)).thenReturn(pages);
-        mockMvc.perform(get("/truenorth/api/v1/records/getRecordsByUser").contextPath("/truenorth")
+        mockMvc.perform(post("/truenorth/api/v1/records/getRecordsByUser")
+                        .with(csrf())
+                        .contextPath("/truenorth")
                         .content(Util.objectToJSONString(recordRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

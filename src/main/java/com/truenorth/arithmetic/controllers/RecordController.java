@@ -30,7 +30,7 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
-    @GetMapping("/getRecordsByUser")
+    @PostMapping("/getRecordsByUser")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> getRecordsByUser(@RequestBody RecordRequest recordRequest) {
         if(recordRequest.getPage() == null || recordRequest.getSize() == null){
